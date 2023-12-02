@@ -3,7 +3,7 @@ Blogpost-App
 
 About
 ---------
-
+GitHub repository for the 2023 Object-Oriented Software Development lecture at the University of Applied Sciences Augsburg.
 The project aims to create a blogpost application with user management.
 
 Setup Steps
