@@ -1,25 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
-posts = [
-    {
-        'author': 'Nasser Yacine',
-        'title': 'First Blog Post',
-        'content': 'Hello Blogpost-App!',
-        'date_posted': 'Dezember 03, 2023'
-    },
-    {
-        'author': 'J. K. Rowling',
-        'title': 'Second Blog Post',
-        'content': 'Beeing an author is boring.',
-        'date_posted': 'Dezember 03, 2023'
-    }
-]
+from .models import Post
 
 
 def home(request ):
     context = {
-        'posts': posts
+        'posts': Post.objects.all()
     }
     return render(request, 'home.html', context)
 
