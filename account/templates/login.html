@@ -1,0 +1,29 @@
+{% extends 'account_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block form %}
+    <div class="content-section">
+        <img src="{% static 'images/logo.png' %}" width="90" height="90" alt="Logo">
+        <legend class="border-bottom mb-4 pt-3">Welcome back to Blog-it</legend>
+        <form method="POST" style="overflow-y:auto; max-height: 65vh; min-height: 30vh">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} text-center" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-lg btn-secondary btn-block" type="submit">Login</button>
+            </div>
+            <a href="{% url 'account-register' %}" class="btn btn-secondary btn-block" role="button">Register</a>
+        </form>
+    </div>
+{% endblock form %}
