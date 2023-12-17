@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 
 from django.contrib.messages import constants as messages
+from credentials import C_EMAIL_HOST_USER, C_EMAIL_HOST_PASSWORD
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -33,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_htmx',
     'crispy_forms',
     'blog.apps.BlogConfig',
     'account.apps.AccountConfig'
@@ -49,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 ROOT_URLCONF = 'Blogpost_App.urls'
@@ -130,3 +133,10 @@ LOGIN_URL = '/login/'
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = C_EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = C_EMAIL_HOST_PASSWORD

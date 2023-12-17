@@ -21,9 +21,10 @@
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-lg btn-secondary btn-block" type="submit">Login</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
             </div>
-            <a href="{% url 'account-register' %}" class="btn btn-secondary btn-block" role="button">Register</a>
+            <a href="{% url 'account-register' %}" class="btn btn-secondary btn-block mb-3" role="button">Register</a>
+            <a href="{% url 'password_reset' %}" class="btn btn-secondary btn-block" role="button">Reset Password</a>
         </form>
     </div>
 {% endblock form %}

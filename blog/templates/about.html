@@ -1,7 +1,25 @@
 {% extends "blog_base.html" %}
+{% load static %}
 
 {% block title %}About{% endblock %}
 
 {% block content%}
-    <h1>About page</h1>
+
+<div class="content-section">
+    <div class="media">
+        <div class="media-body">
+            <div class=" d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="mt-2 ml-2">About Blog-it
+                    </h2>
+                </div>
+                <div class ="d-flex">
+                    <img class="mr-3" src="{% static 'images/logo-inv.png' %}" width="90" height="90" alt="Logo">
+                </div>
+            </div>
+            <p>Blog-it aims to provide a platform for you to share your thoughts with the world. <br> So tell us, what is on your mind today...</p>
+        </div>
+    </div>
+</div>
+
 {% endblock content%}

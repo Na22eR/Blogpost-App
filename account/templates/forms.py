@@ -1,10 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from account.models import Profile
 from django import forms
-
-
 
 
 class RegisterUserForm(UserCreationForm):
@@ -20,8 +17,7 @@ class RegisterUserForm(UserCreationForm):
 
         # Override default password hint
         self.fields['password1'].help_text = 'Your password must contain at least 8 characters'
-        self.fields[
-            'password2'].help_text = 'Repeat your password'
+        self.fields['password2'].help_text = 'Repeat your password'
 
         # Add bootstrap as widget
         self.fields['password1'].widget.attrs['class'] = 'form-control'

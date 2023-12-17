@@ -1,14 +1,10 @@
-{% extends "blog_base.html" %}
 
-{% block title %}Home{% endblock %}
-
-{% block content%}
 {% for post in page.object_list %}
 <article class="media content-section">
     <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
     <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-2" href="{% url 'account-profile' post.author.id %}">{{ post.author }}</a>
+            <a class="mr-2" href="{% url 'account-profile' post.author.id%}">{{ post.author }}</a>
             <small class="text-muted">{{ post.date_posted|date:"F d, Y"}}</small>
         </div>
         <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
@@ -17,16 +13,14 @@
 </article>
 {% endfor %}
 
-<!-- source: https://fly.io/django-beats/a-no-js-solution-for-dynamic-search-in-django/-->
 {% if page %}
-<div id="container" style="padding-bottom: 5%">
     <div id="load-more">
         {% if page.has_next %}
             <div class="load-more" style="text-align: right">
                 <button
                     hx-get="{% url 'blog-load-more-bp' %}"
                     hx-target="#load-more"
-                    hx-vals='{"page": "{{ page.next_page_number }}"}'
+                    hx-vals='{"q": "{{ request.GET.q }}", "page": "{{ page.next_page_number }}"}'
                     hx-swap="outerHTML"
                     class="btn btn-lg btn-secondary btn-outline-info"
                 >
@@ -35,7 +29,6 @@
             </div>
         {% endif %}
     </div>
-</div>
 {% endif %}
 
-{% endblock content%}
+

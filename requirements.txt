@@ -4,6 +4,7 @@ django-bootstrap4==23.2
 # Formulare Filtern
 django-crispy-forms==1.14.0
 Django==5.0
+django-htmx==1.14.0
 # Verwendung von Bildern in Python
 Pillow==10.1.0
 pip==23.3.1

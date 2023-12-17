@@ -6,7 +6,7 @@
 {% block form %}
     <img src="{% static 'images/logo.png' %}" width="90" height="90" alt="Logo">
     <h2 class="h3 mb-3 font-weight-normal pt-3">Logged out successfully</h2>
-    <div class="border-top pt-3" style="display: flex; justify-content: center; align-items: center;">
-        <a href="{% url 'account-login' %}" class="btn btn-secondary btn-block" role="button" style="flex: 0 0 80%" >Back to Login</a>
+    <div class="border-top pt-3">
+        <a href="{% url 'account-login' %}" class="btn btn-secondary btn-block" role="button">Back to Login</a>
     </div>
 {% endblock form %}
