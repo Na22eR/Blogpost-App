@@ -40,7 +40,7 @@
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="{% url 'account-profile' user.id%}">Profile</a>
-                    <a class="nav-item nav-link" href="{% url 'account-account' %}">Account</a>
+                    <a class="nav-item nav-link mr-2" href="{% url 'account-account' %}">Account</a>
                     <form method="post" action="{% url 'account-logout' %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-secondary" >Logout</button>
@@ -51,24 +51,9 @@
     </nav>
 </header>
 
-<main role="main" class="container">
-    <div class="row">
-        <div class="col-md-8">
-            {% block content %}{% endblock %}
-        </div>
-        <div class="col-md-4">
-            <div class="content-section">
-                <h3>Our Sidebar</h3>
-                <p class='text-muted'>You can put any information here you'd like.
-                <ul class="list-group">
-                    <li class="list-group-item list-group-item-light">Latest Posts</li>
-                    <li class="list-group-item list-group-item-light">Announcements</li>
-                    <li class="list-group-item list-group-item-light">Calendars</li>
-                    <li class="list-group-item list-group-item-light">etc</li>
-                </ul>
-                </p>
-            </div>
-        </div>
+<main role="main" style="display: flex; justify-content: center;">
+    <div style="display: flex; justify-content: center; flex-direction: column; width: 45%">
+        {% block content %}{% endblock %}
     </div>
 </main>
 
