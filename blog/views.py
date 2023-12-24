@@ -3,26 +3,18 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.http import JsonResponse
-from django.core import serializers
 from .models import Post
 from account.models import User
 
+
 paginator_interval = 4
-
-@login_required()
-def home(request ):
-    context = {
-        'posts': Post.objects.all()
-    }
-    return render(request, 'home.html', context)
-
 
 class PostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'home.html'
     context_object_name = 'page'
 
+    # load first set of posts on initial load of page
     def get(self, request, *args, **kwargs):
         page_num = request.GET.get('page', 1)
 
@@ -31,6 +23,7 @@ class PostListView(LoginRequiredMixin, ListView):
         paginator = Paginator(posts, per_page=paginator_interval)
         page = paginator.get_page(page_num)
 
+        # passing required information to html context
         return render(
             request=request,
             template_name=self.template_name,
@@ -40,6 +33,7 @@ class PostListView(LoginRequiredMixin, ListView):
 
 @login_required()
 def load_more_blog_posts(request):
+    # receives the current page number and returns next set of posts
     if request.htmx:
         page_num = request.GET.get('page', 1)
 
@@ -47,6 +41,7 @@ def load_more_blog_posts(request):
 
         page = Paginator(object_list=posts, per_page=paginator_interval).get_page(page_num)
 
+        # does not return home.html but blog_pagination.html do handle pagination of homepage
         return render(
             request=request,
             template_name='blog_pagination.html',
@@ -60,6 +55,7 @@ def load_more_blog_posts(request):
 
 @login_required()
 def load_more_profile_posts(request, user_id):
+    # receives the current page number and returns next set of posts
     if request.htmx:
         page_num = request.GET.get('page', 1)
 
@@ -68,16 +64,17 @@ def load_more_profile_posts(request, user_id):
 
         page = Paginator(object_list=posts, per_page=paginator_interval).get_page(page_num)
 
+        # does not return profile.html but profile_pagination.html do handle pagination of user profiles
         return render(
             request=request,
-            template_name='blog_pagination.html',
+            template_name='profile_pagination.html',
             context={
                 'page': page,
                 'user_object': passed_user,
             }
         )
 
-    return render(request, 'blog_pagination.html')
+    return render(request, 'profile_pagination.html')
 
 
 class PostDetailView(LoginRequiredMixin, DetailView):
@@ -94,12 +91,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-
-    # add is_create boolean to context to determine if it is an update or a post
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_create'] = True
-        return context
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -125,6 +116,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = 'post_confirm_delete.html'
     success_url = '/blog'
 
+    # checks if current user is the author of the post, if true delete is allowed
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.author:

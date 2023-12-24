@@ -63,6 +63,7 @@ def account(request):
 class ProfileView(LoginRequiredMixin, ListView):
     template_name = 'profile.html'
 
+    # load first set of posts on initial load of page
     def get(self, request, user_id, *args, **kwargs):
         page_num = request.GET.get('page', 1)
         passed_user = User.objects.get(pk=user_id)
@@ -72,6 +73,7 @@ class ProfileView(LoginRequiredMixin, ListView):
         paginator = Paginator(posts, per_page=paginator_interval)
         page = paginator.get_page(page_num)
 
+        # passing required information to html context
         return render(
             request=request,
             template_name=self.template_name,
@@ -82,16 +84,3 @@ class ProfileView(LoginRequiredMixin, ListView):
                 'user_last_post': Post.objects.filter(author=passed_user).order_by('-date_posted').first(),
                      }
         )
-
-
-@login_required()
-def profile(request, user_id):
-
-    passed_user = User.objects.get(pk=user_id)
-
-    context = {
-        'user_object': passed_user,
-        'user_posts': Post.objects.filter(author=passed_user).order_by('-date_posted')
-    }
-
-    return render(request, 'profile.html', context)

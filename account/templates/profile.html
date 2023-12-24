@@ -45,6 +45,7 @@
     <div id="load-more">
         {% if page.has_next %}
             <div class="load-more" style="text-align: right">
+                <!-- Next request is not sent to profile url instead blog-load-more-pp -->
                 <button
                     hx-get="{% url 'blog-load-more-pp' user_object.id %}"
                     hx-target="#load-more"

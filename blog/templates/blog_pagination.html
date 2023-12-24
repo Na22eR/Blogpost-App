@@ -1,4 +1,4 @@
-
+<!-- Display loaded Posts   -->
 {% for post in page.object_list %}
 <article class="media content-section">
     <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
@@ -13,6 +13,7 @@
 </article>
 {% endfor %}
 
+<!-- If there is a next page element, show button with HTMX function   -->
 {% if page %}
     <div id="load-more">
         {% if page.has_next %}

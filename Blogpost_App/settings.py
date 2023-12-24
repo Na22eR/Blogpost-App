@@ -122,6 +122,7 @@ STATICFILES_DIRS = [
 
 STATIC_URL = 'static/'
 
+# directory for profile pictures
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
@@ -134,6 +135,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
+# smtp settings for password reset mail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
